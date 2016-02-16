@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "./nectar-test", line 25, in <module>
+    RunTest1().runTest1(config)
+  File "/home/deven/workspace/tripping-octo-wight/tripping-octo-wight/runTest1.py", line 93, in runTest1
+    if self.clear.removeSnapshot(config, snap[0])==True:
+  File "/home/deven/workspace/tripping-octo-wight/tripping-octo-wight/cleanup.py", line 48, in removeSnapshot
+    if self.nova_.deleteSnapshot(snapshot_id, client)==True:
+  File "/home/deven/workspace/tripping-octo-wight/tripping-octo-wight/novaaction.py", line 123, in deleteSnapshot
+    image.delete()
+  File "/usr/lib/python2.7/site-packages/novaclient/v1_1/images.py", line 23, in delete
+    self.manager.delete(self)
+  File "/usr/lib/python2.7/site-packages/novaclient/v1_1/images.py", line 66, in delete
+    self._delete("/images/%s" % base.getid(image))
+  File "/usr/lib/python2.7/site-packages/novaclient/base.py", line 154, in _delete
+    _resp, _body = self.api.client.delete(url)
+  File "/usr/lib/python2.7/site-packages/novaclient/client.py", line 239, in delete
+    return self._cs_request(url, 'DELETE', **kwargs)
+  File "/usr/lib/python2.7/site-packages/novaclient/client.py", line 217, in _cs_request
+    **kwargs)
+  File "/usr/lib/python2.7/site-packages/novaclient/client.py", line 199, in _time_request
+    resp, body = self.request(url, method, **kwargs)
+  File "/usr/lib/python2.7/site-packages/novaclient/client.py", line 193, in request
+    raise exceptions.from_response(resp, body, url, method)
+novaclient.exceptions.NotFound: Image not found. (HTTP 404) (Request-ID: req-b7e8ecb8-15fb-4e8d-b4e8-d062d0d3e955)

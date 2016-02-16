@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}" />
+  <style type="text/css">
+
+body {
+font: normal 11px auto "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+color: #4f6b72;
+background: #fff;
+}
+
+a {
+color: #c75f3e;
+}
+
+#mytable {
+width: 60%;
+padding: 0;
+margin: 0;
+}
+
+
+#header {
+width: 60%;
+padding: 0;
+margin: 0;
+}
+caption {
+padding: 0 0 5px 0;
+width: 700px; 
+font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+text-align: right;
+}
+
+th {
+font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+color: #4f6b72;
+border-left: 1px solid #C1DAD7;
+border-right: 1px solid #C1DAD7;
+border-bottom: 1px solid #C1DAD7;
+border-top: 1px solid #C1DAD7;
+letter-spacing: 2px;
+text-transform: uppercase;
+text-align: left;
+padding: 6px 6px 6px 12px;
+background: #CAE8EA ;
+}
+
+th.nobg {
+border-top: 0;
+border-left: 0;
+border-right: 1px solid #C1DAD7;
+background: none;
+}
+
+td {
+border-right: 1px solid #C1DAD7;
+border-bottom: 1px solid #C1DAD7;
+background: #fff;
+padding: 6px 6px 6px 12px;
+color: #4f6b72;
+}
+
+
+td.alt {
+background: #F5FAFA;
+color: #797268;
+}
+
+th.header{
+border-left: 1px solid #ef9f00;
+border-right: 1px solid #ef9f00;
+border-top: 1px solid #ef9f00;
+border-bottom: 1px solid #ef9f00;
+background: #f29400 ;
+font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+color: #ffffff;
+}
+
+th.spec {
+border-left: 1px solid #ef9f00;
+border-right: 1px solid #ef9f00;
+border-top: 1px solid #ef9f00;
+border-bottom: 1px solid #ef9f00;
+background: #efb300 ;
+font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+color: #ffffff;
+}
+
+th.specalt {
+border-left: 1px solid #ef9f00;
+border-right: 1px solid #ef9f00;
+border-top: 0;
+background: #fff ;
+border-bottom: 1px solid #ef9f00;
+font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+bcolor: #797268;
+}
+
+th.specall {
+border-left: 1px solid #ef9f00;
+border-right: 1px solid #ef9f00;
+border-top: 0;
+background: #efb300;
+border-bottom: 1px solid #ef9f00;
+font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+color: #ffffff;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <table id="header" cellspacing="0" summary="NeCTAR Cloud Usage Header">
+      <tr>
+	    <th scope="row" class="header">NeCTAR Research Cloud Usage Report</th>
+   
+	      </tr>
+      </table>  
+
+<br>
+
+
+
+
+{% for item in cell %}
+<table id="mytable" cellspacing="0">
+    <tr>
+          <th scope="row" class="spec">
+	    {%if item.get('node_name') == "np"%}
+	    NeCTAR Research Cloud, Melbourne Node, Noble Park Cell
+	    {%elif item.get('node_name') == "qh2"%}
+	    NeCTAR Research Cloud, Melbourne Node, Parkvile Cell
+	    {%elif item.get('node_name') == "monash-01"%}
+	    NeCTAR Research Cloud, Monash Node, Monash-01 Cell
+	    {%elif item.get('node_name') == "qld"%}
+	    NeCTAR Research Cloud, Queensland, Queensland Cell
+	    
+	    {%endif%}
+</th>
+    </tr>
+
+<tr>
+  <th scope="row" class="specalt">Resource Usage update as at: {{ date }}</th>
+</tr>
+<tr>
+  <th scope="row" class="specalt">
+    Total available nodes, cores and memory: {{ item.get('node_count') }}, {{ item.get('nac') }}, {{ item.get('nam') }} GB
+    </th>
+</tr>
+<tr>
+  <th scope="row" class="specalt">
+    Used cores and memory: {{ item.get('nuc') }}, {{ item.get('num') }} GB
+    </th>
+</tr>
+<tr>
+  <th scope="row" class="specalt">
+    Free cores and memory: {{ item.get('nfc') }}, {{ item.get('nfm') }} GB
+    </th>
+<tr>
+  <th scope="row" class="specalt">
+    VM sizes in use (s, m, l, xl, xxl, others): {{ item.get('t_s') }},{{ item.get('t_m') }}
+        {{ item.get('t_l') }},{{ item.get('t_xl') }} 
+        {{ item.get('t_xxl') }},{{ item.get('oth')}}
+    </th>
+   
+ 
+ 
+</table>
+<br>
+ {% endfor %}
+ 
+<br>
+<table id="mytable" cellspacing="0">
+  <tr>
+    <th scope="row" class="specall">
+      NeCTAR Research Cloud Total Usage
+      </tr>
+  <tr>
+    <th scope="row" class="specalt">Resource Usage update as at: {{ date }}</th>
+    </tr>
+  <tr>
+       <th scope="row" class="specalt">
+	    Total available nodes, cores and memory: {{ rc.get('total_nodes')}}, {{ rc.get('total_cores')}}, {{ rc.get('total_mem')}} GB
+	       </th>
+   </tr>
+   <tr>
+       <th scope="row" class="specalt">Used cores and memory: {{ rc.get('used_cores')}}, {{ rc.get('used_mem')}} GB </th>
+  </tr>
+  <tr>  
+     <th scope="row" class="specalt">Free cores and memory: {{ rc.get('free_cores')}}, {{ rc.get('free_mem')}} GB </th>
+ </tr>
+ <tr>
+ <th scope="row" class="specalt">VM sizes in use (s, m, l, xl, xxl, others): {{ rc.get('total_small')}}, {{ rc.get('total_medium')}},
+                                                               {{ rc.get('total_large')}}, {{ rc.get('total_xl')}},
+      {{ rc.get('total_xxl')}},{{ rc.get('oth')}}
+ </th>
+</tr>
+ 
+</table>
+</body>
+</html>
